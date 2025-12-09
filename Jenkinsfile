@@ -19,7 +19,7 @@ pipeline {
         stage('Push Registry') {
             steps {
                 sh 'docker build . --tag ttl.sh/myapp:1h'
-                // sh 'docker push registry.iximiuz.com/myapp:latest'
+                sh 'docker push ttl.sh/myapp:1h'
             }
         }
         stage('Deploy') {
