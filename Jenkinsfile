@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
-                    sh 'ansible-playbook -u ${USERNAME} --key-file ${FILENAME} --inventory hosts.ini playbook.yaml'
+                    sh 'ssh -i ${FILENAME} -o StrictHostKeyChecking=no ${USERNAME}@docker "docker pull registry.iximiuz.com/myapp:latest && docker run -d --restart always --name myapp registry.iximiuz.com/myapp:latest"'
                 }
             }
         }
