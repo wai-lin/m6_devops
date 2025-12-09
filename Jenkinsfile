@@ -18,10 +18,8 @@ pipeline {
         }
         stage('Push Registry') {
             steps {
-                sh 'docker build . --tag registry.iximiuz.com/myapp'
-                sh 'docker push'
-                // withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
-                // }
+                sh 'docker build . --tag registry.iximiuz.com/myapp:latest'
+                sh 'docker push registry.iximiuz.com/myapp:latest'
             }
         }
         stage('Deploy') {
