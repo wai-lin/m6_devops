@@ -16,11 +16,19 @@ pipeline {
                 sh "go build main.go"
             }
         }
-        stage('Deploy') {
+        stage('Push Registry') {
             steps {
-                sh 'docker build . --tag myapp'
+                sh 'docker build . --tag registry.iximiuz.com/myapp'
+                sh 'docker push'
                 // withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
                 // }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
+                    sh 'ansible-playbook -u ${USERNAME} --key-file ${FILENAME} --inventory hosts.ini playbook.yaml'
+                }
             }
         }
     }
