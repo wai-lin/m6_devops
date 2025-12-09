@@ -1,12 +1,12 @@
 - hosts: all
   tasks:
-    - name: Install required Python packages
-      pip:
-        name:
-          - requests
-          - docker
-        state: present
-      become: yes
+    # - name: Install required Python packages
+    #   pip:
+    #     name:
+    #       - requests
+    #       - docker
+    #     state: present
+    #   become: yes
 
     - name: Pull Docker image
       docker_image:
