@@ -1,4 +1,7 @@
 - hosts: all
+  gather_facts: no
+  vars:
+    ansible_host_key_checking: false
   tasks:
     - name: Pull Docker image
       docker_image:
