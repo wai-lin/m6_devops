@@ -26,9 +26,9 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
                     sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'sudo systemctl restart docker'"
-                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker stop myapp || true'"
-                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker rm myapp || true'"
-                    sh 'ssh -i ${FILENAME} -o StrictHostKeyChecking=no ${USERNAME}@docker "docker pull ttl.sh/app_aung:1h && docker run -d --restart always -p 4444:4444 --name myapp ttl.sh/app_aung:1h"'
+                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker stop app_aung || true'"
+                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker rm app_aung || true'"
+                    sh 'ssh -i ${FILENAME} -o StrictHostKeyChecking=no ${USERNAME}@docker "docker pull ttl.sh/app_aung:1h && docker run -d --restart always -p 4444:4444 --name app_aung ttl.sh/app_aung:1h"'
                 }
             }
         }
