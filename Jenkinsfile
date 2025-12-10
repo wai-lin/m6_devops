@@ -18,8 +18,8 @@ pipeline {
         }
         stage('Push Registry') {
             steps {
-                sh 'docker build . --tag ttl.sh/myapp:1h'
-                sh 'docker push ttl.sh/myapp:1h'
+                sh 'docker build . --tag ttl.sh/app_aung:1h'
+                sh 'docker push ttl.sh/app_aung:1h'
             }
         }
         stage('Deploy') {
@@ -28,7 +28,7 @@ pipeline {
                     sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'sudo systemctl restart docker'"
                     sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker stop myapp || true'"
                     sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker rm myapp || true'"
-                    sh 'ssh -i ${FILENAME} -o StrictHostKeyChecking=no ${USERNAME}@docker "docker pull ttl.sh/myapp:1h && docker run -d --restart always --name myapp ttl.sh/myapp:1h"'
+                    sh 'ssh -i ${FILENAME} -o StrictHostKeyChecking=no ${USERNAME}@docker "docker pull ttl.sh/app_aung:1h && docker run -d --restart always --name myapp ttl.sh/app_aung:1h"'
                 }
             }
         }
