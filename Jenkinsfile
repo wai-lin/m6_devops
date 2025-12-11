@@ -22,13 +22,9 @@ pipeline {
                 sh 'docker push ttl.sh/app_aung:1h'
             }
         }
-        stage('Deploy') {
+        stage('Deploy to Kubernetes') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
-                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'sudo systemctl restart docker'"
-                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker stop app_aung || true'"
-                    sh "ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@docker 'docker rm app_aung || true'"
-                    sh 'ssh -i ${FILENAME} -o StrictHostKeyChecking=no ${USERNAME}@docker "docker pull ttl.sh/app_aung:1h && docker run -d --restart always -p 4444:4444 --name app_aung ttl.sh/app_aung:1h"'
+                withKubeConfig([credentialsId: '', serverUrl: '']) {
                 }
             }
         }
