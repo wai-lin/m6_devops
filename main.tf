@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_key_pair" "main" {
   key_name   = "mykey"
-  public_key = ""
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9VbxVrrOoSOp+NvvlW0+LosZKA2OsUjVAS82bWHPvw laborant@flexbox (managed)"
 }
 
 resource "aws_security_group" "main" {
