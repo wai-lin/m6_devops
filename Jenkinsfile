@@ -19,7 +19,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'mykey', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
-                    sh 'ansible-playbook -u ${USERNAME} --key-file ${FILENAME} --inventory hosts.ini playbook.yaml'
+                    sh 'ssh -o StrictHostKeyChecking=no -i ${FILENAME} ${USERNAME}@13.214.30.59 "sudo systemctl stop myapp" || true' 
+                    sh 'scp -o StrictHostKeyChecking=no -i ${FILENAME} main ${USERNAME}@13.214.30.59:'
                 }
             }
         }
