@@ -4,13 +4,36 @@
       copy:
         src: "{{ item }}"
         dest: /home/laborant/app/
+        mode: preserve
       loop:
         - index.js
         - package.json
         - package-lock.json
+
+    - name: Make index.js executable
+      file:
+        path: /home/laborant/app/index.js
+        mode: '0755'
 
     - name: Install npm dependencies
       command: npm ci
       args:
         chdir: /home/laborant/app
 
+    - name: Create systemd service file
+      become: true
+      copy:
+        src: ./myapp.service
+        dest: /etc/systemd/system/myapp.service
+
+    - name: Reload systemd daemon
+      become: true
+      systemd:
+        daemon_reload: true
+
+    - name: Enable and start the application service
+      become: true
+      systemd:
+        name: myapp
+        enabled: true
+        state: restarted
