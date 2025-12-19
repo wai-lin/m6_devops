@@ -1,4 +1,4 @@
-- hosts: target_machine
+- hosts: docker_machine
   tasks:
     - name: Restart Docker service
       become: yes
