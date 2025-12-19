@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                nodejs(nodeJSInstallationName: 'NodeJS_24') {
+                nodejs(nodeJSInstallationName: 'NodeJS 24') {
                     sh "npm ci"
                 }
             }
         }
         stage('Test') {
             steps {
-                nodejs(nodeJSInstallationName: 'NodeJS_24') {
+                nodejs(nodeJSInstallationName: 'NodeJS 24') {
                     sh "npm run test"
                 }
             }
