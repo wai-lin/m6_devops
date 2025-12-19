@@ -1,0 +1,25 @@
+{
+  "name": "m6_devops",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wai-lin/m6_devops.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wai-lin/m6_devops/issues"
+  },
+  "homepage": "https://github.com/wai-lin/m6_devops#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
