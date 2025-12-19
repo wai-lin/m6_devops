@@ -14,9 +14,3 @@
       args:
         chdir: /home/laborant/app
 
-    - name: Start the application
-      command: npm start
-      args:
-        chdir: /home/laborant/app
-      async: 0
-      poll: 0
