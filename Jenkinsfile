@@ -1,19 +1,19 @@
 pipeline {
     agent any
 
-    tools {
-       nodejs "NodeJS_24"
-    }
-
     stages {
         stage('Prepare') {
             steps {
-                sh "npm ci"
+                nodejs(nodeJSInstallationName: 'NodeJS_24') {
+                    sh "npm ci"
+                }
             }
         }
         stage('Test') {
             steps {
-                sh "npm run test"
+                nodejs(nodeJSInstallationName: 'NodeJS_24') {
+                    sh "npm run test"
+                }
             }
         }
         stage('Deploy') {
