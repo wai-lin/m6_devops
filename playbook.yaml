@@ -1,0 +1,22 @@
+- hosts: target_machine
+  tasks:
+    - name: Copy the project files
+      copy:
+        src: "{{ item }}"
+        dest: /home/laborant/app/
+      loop:
+        - src/
+        - package.json
+        - package-lock.json
+
+    - name: Install npm dependencies
+      command: npm install
+      args:
+        chdir: /home/laborant/app
+
+    - name: Start the application
+      command: npm start
+      args:
+        chdir: /home/laborant/app
+      async: 0
+      poll: 0
