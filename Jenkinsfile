@@ -22,10 +22,10 @@ pipeline {
                 sh 'docker push ttl.sh/app_aung:1h'
             }
 		  }
-        stage('Deploy') {
+		  stage('Deploy to Kubernetes') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'docker_key', keyFileVariable: 'FILENAME', usernameVariable: 'USERNAME')]) {
-                    sh 'ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -u ${USERNAME} --key-file ${FILENAME} --inventory hosts.ini playbook.yaml'
+                withKubeConfig([credentialsId: 'k8key', serverUrl: 'https://kubernetes:6443']) {
+                    sh 'kubectl apply -f pod.yaml'
                 }
             }
         }
